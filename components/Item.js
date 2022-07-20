@@ -2,10 +2,7 @@ const Item = (props) => {
 	const onRemoveItemSubmit = (e) => {
 		e.preventDefault();
 
-		const items = localStorage.getItem('items').split(',')
-		const itemsUpdated = items.filter(val => val != props.name)
-		localStorage.setItem('items', itemsUpdated)
-		props.populateItems()
+		props.removeItem(props.id)
 	}
 
 	return (
