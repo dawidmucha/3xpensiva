@@ -1,9 +1,9 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 
 
-const LogInForm = () => {
-	const router = useRouter()
+const LogInForm = (props) => {
+	const [user, setUser] = useState(undefined)
 
 	const onLogInSubmit = (e) => {
 		e.preventDefault()
@@ -11,16 +11,11 @@ const LogInForm = () => {
 		const email = e.target.email.value
 		const password = e.target.password.value
 
-		console.log('signing up as', email, password)
-
 		const auth = getAuth()
-		createUserWithEmailAndPassword(auth, email, password).then((userCredentials) => {
+		signInWithEmailAndPassword(auth, email, password).then((userCredentials) => {
 			const user = userCredentials.user
+			props.setUser(user)
 			console.log(user)
-
-			//redirect
-			router.push('/dashboard')
-
 		}).catch(err => {
 			const errCode = err.code
 			const errMessage = err.message

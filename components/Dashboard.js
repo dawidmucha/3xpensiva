@@ -21,7 +21,6 @@ const Dashboard = () => {
 
 		const value = e.target.addItem.value
 
-		const dbRef = ref(getDatabase())
 		const db = getDatabase()
 
 		set(ref(db, `TEST_UID/items/${id}`), {
@@ -37,7 +36,6 @@ const Dashboard = () => {
 
 	const removeItem = (id) => {
 		const db = getDatabase()
-		const dbRef = ref(getDatabase())
 
 		remove(ref(db, `TEST_UID/items/${id}`)).then(() => {
 			populateItems()
